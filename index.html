@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Centro de Salud - Sistema Web</title>
+  <style>
+    body { font-family: Arial, sans-serif; background-color: #f0f4f8; margin: 20px; }
+    h1 { color: #1a365d; text-align: center; }
+    .nav-tabs { display: flex; gap: 10px; margin-bottom: 20px; }
+    .tab-btn { padding: 10px 20px; background-color: #cbd5e1; border: none; cursor: pointer; border-radius: 5px; font-weight: bold; }
+    .tab-btn.active { background-color: #2563eb; color: white; }
+    .tab-btn:disabled { background-color: #e2e8f0; color: #94a3b8; cursor: not-allowed; }
+    .tab-content { display: none; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    .tab-content.active { display: block; }
+    .form-group { margin-bottom: 15px; display: inline-block; margin-right: 15px; }
+    label { display: block; font-size: 12px; font-weight: bold; margin-bottom: 5px; }
+    input { padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+    button.action-btn { background-color: #2563eb; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer; margin-top: 10px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid #e2e8f0; padding: 10px; text-align: left; }
+    th { background-color: #f1f5f9; }
+  </style>
+</head>
+<body>
+
+  <h1>CENTRO DE SALUD - SISTEMA INTEGRAL</h1>
+
+  <div class="nav-tabs">
+    <button id="btn-login" class="tab-btn active" onclick="cambiarPestaña('login')">1. Login</button>
+    <button id="btn-pacientes" class="tab-btn" onclick="cambiarPestaña('pacientes')" disabled>2. Pacientes</button>
+    <button id="btn-citas" class="tab-btn" onclick="cambiarPestaña('citas')" disabled>3. Citas</button>
+    <button id="btn-medicinas" class="tab-btn" onclick="cambiarPestaña('medicinas')" disabled>4. Medicinas</button>
+  </div>
+
+  <!-- PESTAÑA LOGIN -->
+  <div id="login" class="tab-content active">
+    <h2>Inicio de Sesión</h2>
+    <div class="form-group"><label>Usuario</label><input type="text" id="usuario"></div>
+    <div class="form-group"><label>Contraseña</label><input type="password" id="password"></div>
+    <br>
+    <button class="action-btn" onclick="iniciarSesion()">Ingresar</button>
+  </div>
+
+  <!-- PESTAÑA PACIENTES -->
+  <div id="pacientes" class="tab-content">
+    <h2>Registro de Pacientes</h2>
+    <div class="form-group"><label>Códg. / DNI</label><input type="text" id="dni"></div>
+    <div class="form-group"><label>Nombres y Apellidos</label><input type="text" id="nombres"></div>
+    <div class="form-group"><label>Teléfono</label><input type="text" id="telefono"></div>
+    <div class="form-group"><label>Edad</label><input type="text" id="edad"></div>
+    <br>
+    <button class="action-btn" onclick="agregarPaciente()">Agregar a la Tabla</button>
+    <button class="action-btn" style="background:#059669" onclick="siguienteDesdePacientes()">Siguiente</button>
+
+    <table>
+      <thead><tr><th>DNI</th><th>Nombres</th><th>Teléfono</th><th>Edad</th></tr></thead>
+      <tbody id="tablaPacientes"></tbody>
+    </table>
+  </div>
+
+  <!-- PESTAÑA CITAS -->
+  <div id="citas" class="tab-content">
+    <h2>Agenda de Citas Médicas</h2>
+    <div class="form-group"><label>Código de Cita</label><input type="text" id="codCita"></div>
+    <div class="form-group"><label>Código Paciente</label><input type="text" id="codPaciente"></div>
+    <div class="form-group"><label>Especialidad</label><input type="text" id="especialidad"></div>
+    <div class="form-group"><label>Fecha</label><input type="text" id="fecha"></div>
+    <br>
+    <button class="action-btn" onclick="agregarCita()">Agregar a la Tabla</button>
+    <button class="action-btn" style="background:#059669" onclick="siguienteDesdeCitas()">Siguiente</button>
+
+    <table>
+      <thead><tr><th>Cod Cita</th><th>Cod Paciente</th><th>Especialidad</th><th>Fecha</th></tr></thead>
+      <tbody id="tablaCitas"></tbody>
+    </table>
+  </div>
+
+  <!-- PESTAÑA MEDICINAS -->
+  <div id="medicinas" class="tab-content">
+    <h2>Inventario de Medicinas</h2>
+    <div class="form-group"><label>Código</label><input type="text" id="codMed"></div>
+    <div class="form-group"><label>Nombre</label><input type="text" id="nomMed"></div>
+    <div class="form-group"><label>Stock</label><input type="text" id="stockMed"></div>
+    <div class="form-group"><label>Precio</label><input type="text" id="precioMed"></div>
+    <br>
+    <button class="action-btn" onclick="agregarMedicina()">Agregar a la Tabla</button>
+    <button class="action-btn" style="background:#dc2626" onclick="cerrarSesion()">Salir / Cerrar Sesión</button>
+
+    <table>
+      <thead><tr><th>Código</th><th>Nombre</th><th>Stock</th><th>Precio</th></tr></thead>
+      <tbody id="tablaMedicinas"></tbody>
+    </table>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
